@@ -1,4 +1,4 @@
-package com.sinsz.test;
+package com.sinsz.test.bio;
 
 import java.io.BufferedReader;
 import java.io.IOException;
