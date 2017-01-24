@@ -2,6 +2,7 @@ package com.sinsz.netty.client;
 
 
 import com.sinsz.netty.handler.TimeClientHandler;
+import com.sinsz.netty.handler.TimeClientHandler2;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -10,6 +11,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
 
 public class TimeClient {
 
@@ -24,7 +27,9 @@ public class TimeClient {
                      .handler(new ChannelInitializer<SocketChannel>() {
                          @Override
                          protected void initChannel(SocketChannel ch) throws Exception {
-                             ch.pipeline().addLast(new TimeClientHandler());
+                             ch.pipeline().addLast(new LineBasedFrameDecoder(1024));
+                             ch.pipeline().addLast(new StringDecoder());
+                             ch.pipeline().addLast(new TimeClientHandler2());
                          }
                      });
             ChannelFuture future = bootstrap.connect(host,port).sync();
