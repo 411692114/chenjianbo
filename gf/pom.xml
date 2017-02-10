@@ -42,6 +42,12 @@
 			<version>1.0-alpha-5</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.xwiki.rendering</groupId>
+			<artifactId>xwiki-rendering-api</artifactId>
+			<version>8.4.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -58,7 +64,7 @@
 		<repository>
 			<id>central</id>
 			<name>Central</name>
-			<url>http://192.168.8.202:8889/nexus/content/repositories/central/</url>
+			<url>http://192.168.8.198:8889/nexus/content/repositories/central/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -71,12 +77,12 @@
 		<repository>
 			<id>releases</id>
 			<name>releases</name>
-			<url>http://192.168.8.202:8889/nexus/content/repositories/releases</url>
+			<url>http://192.168.8.198:8889/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>snapshots</name>
-			<url>http://192.168.8.202:8889/nexus/content/repositories/snapshots</url>
+			<url>http://192.168.8.198:8889/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<!-- STOP-配置调用公司内部的中央库结束 -->
