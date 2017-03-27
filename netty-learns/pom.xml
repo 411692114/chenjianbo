@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.3.RELEASE</version>
+		<version>1.5.2.RELEASE</version>
 		<relativePath/>
 	</parent>
 
@@ -88,33 +88,5 @@
 		<module>netty-time</module>
 		<module>netty-time-client</module>
 	</modules>
-
-	<!-- START-以下为配置调用公司内部的中央库 -->
-	<!--<repositories>
-		<repository>
-			<id>central</id>
-			<name>Central</name>
-			<url>http://192.168.8.202:8889/nexus/content/repositories/central/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<name>releases</name>
-			<url>http://192.168.8.202:8889/nexus/content/repositories/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>snapshots</name>
-			<url>http://192.168.8.202:8889/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>-->
-	<!-- STOP-配置调用公司内部的中央库结束 -->
 
 </project>
