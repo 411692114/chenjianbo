@@ -2,6 +2,9 @@ package com.sinsz.netty;
 
 import com.sinsz.netty.client.TimeClient;
 
+/**
+ * 客户端启动
+ */
 public class Client {
 
 	public static void main(String[] args) throws InterruptedException {
