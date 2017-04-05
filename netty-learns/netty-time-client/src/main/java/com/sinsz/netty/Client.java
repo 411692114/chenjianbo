@@ -1,6 +1,6 @@
 package com.sinsz.netty;
 
-import com.sinsz.netty.client.TimeClient;
+import com.sinsz.netty.client.EchoClient;
 
 /**
  * 客户端启动
@@ -15,7 +15,8 @@ public class Client {
 			} catch (NumberFormatException e) {
 			}
 		}
-		new TimeClient().connect(port,"127.0.0.1");
+		// new TimeClient().connect(port,"127.0.0.1");
+		new EchoClient().connect(port,"127.0.0.1");
 	}
 
 }

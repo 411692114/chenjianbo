@@ -1,19 +1,15 @@
 package com.sinsz.netty.server;
 
 
-import com.sinsz.netty.handler.TimeServerHandler2;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 
 
@@ -47,7 +43,7 @@ public class EchoServer {
     /**
      * 子处理通道
      */
-    private class ChildChannelHandler extends ChannelInitializer<SocketChannel>{
+    private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 
         @Override
         protected void initChannel(SocketChannel socketChannel) throws Exception {
@@ -56,9 +52,29 @@ public class EchoServer {
             //自定义截断符
             socketChannel.pipeline().addLast(new DelimiterBasedFrameDecoder(1024,delimiter));
             socketChannel.pipeline().addLast(new StringDecoder());
-            socketChannel.pipeline().addLast(new TimeServerHandler2());
+            socketChannel.pipeline().addLast(new EchoServerHandler());
         }
 
+    }
+
+    @ChannelHandler.Sharable
+    public class EchoServerHandler extends ChannelInboundHandlerAdapter {
+        private int counter = 0;
+
+        @Override
+        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+            String body = msg.toString();
+            System.out.println("[number: "+ ++counter +",body: " + body + "]");
+            body += "$_";
+            ByteBuf byteBuf = Unpooled.copiedBuffer(body.getBytes());
+            ctx.writeAndFlush(byteBuf);
+        }
+
+        @Override
+        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+            cause.printStackTrace();
+            ctx.close();
+        }
     }
 
 }
