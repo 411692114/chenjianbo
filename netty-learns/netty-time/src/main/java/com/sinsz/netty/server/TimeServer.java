@@ -1,7 +1,6 @@
 package com.sinsz.netty.server;
 
 
-import com.sinsz.netty.handler.TimeServerHandler;
 import com.sinsz.netty.handler.TimeServerHandler2;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -26,7 +25,9 @@ public class TimeServer {
             //基本设置
             bootstrap.group(bossGroup,workerGroup)
                      .channel(NioServerSocketChannel.class)
-                     .option(ChannelOption.SO_BACKLOG,128)
+                     .option(ChannelOption.SO_KEEPALIVE, false)
+                     .option(ChannelOption.TCP_NODELAY, true) //设置封包 使用一次大数据的写操作，而不是多次小数据的写操作
+                     .option(ChannelOption.SO_BACKLOG, 128)   //挂起的连接
                      .childHandler(new ChildChannelHandler());
             //绑定端口，同步等待成功
             ChannelFuture future = bootstrap.bind(port).sync();

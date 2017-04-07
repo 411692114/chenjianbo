@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "com.sinsz.netty.proto";
+option java_outer_classname = "IMessage";
+
+message IMessageBuf{
+
+    string username = 1;
+    string content = 2;
+    bool state = 3;
+
+}

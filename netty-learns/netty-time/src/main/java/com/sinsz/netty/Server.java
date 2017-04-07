@@ -1,6 +1,6 @@
 package com.sinsz.netty;
 
-import com.sinsz.netty.server.EchoServer;
+import com.sinsz.netty.server.MessageServer;
 
 public class Server {
 
@@ -17,8 +17,7 @@ public class Server {
             } catch (NumberFormatException e) {
             }
         }
-        //new TimeServer().bind(port);
-        new EchoServer().bind(port);
+        new MessageServer().bind(port);
     }
 
 }

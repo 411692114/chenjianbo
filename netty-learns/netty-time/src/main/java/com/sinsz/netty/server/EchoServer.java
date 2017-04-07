@@ -10,6 +10,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.string.StringDecoder;
 
 
@@ -27,7 +28,9 @@ public class EchoServer {
             //基本设置
             bootstrap.group(bossGroup,workerGroup)
                      .channel(NioServerSocketChannel.class)
-                     .option(ChannelOption.SO_BACKLOG,128)
+                     .option(ChannelOption.SO_KEEPALIVE, false)
+                     .option(ChannelOption.TCP_NODELAY, true) //设置封包 使用一次大数据的写操作，而不是多次小数据的写操作
+                     .option(ChannelOption.SO_BACKLOG, 128)   //挂起的连接
                      .childHandler(new ChildChannelHandler());
             //绑定端口，同步等待成功
             ChannelFuture future = bootstrap.bind(port).sync();
@@ -53,6 +56,7 @@ public class EchoServer {
             socketChannel.pipeline().addLast(new DelimiterBasedFrameDecoder(1024,delimiter));
             socketChannel.pipeline().addLast(new StringDecoder());
             socketChannel.pipeline().addLast(new EchoServerHandler());
+            socketChannel.pipeline().addLast(new ProtobufEncoder());
         }
 
     }
