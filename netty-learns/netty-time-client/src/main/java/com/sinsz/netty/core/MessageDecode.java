@@ -25,9 +25,8 @@ public class MessageDecode extends ByteToMessageDecoder {
         in.markReaderIndex();
         int dataLength = in.readInt();
         //因为包头预留了两个字节的大小，所以要预先读掉两个字节
-        byte packet = in.readByte();
-        byte version = in.readByte();
-        System.out.println("dataLength = " + dataLength);
+        in.readByte();
+        in.readByte();
         if (in.readableBytes() < dataLength) {
             in.resetReaderIndex();
             return;
